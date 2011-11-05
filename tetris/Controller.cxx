@@ -1,8 +1,8 @@
 #include "Controller.h"
 #include "TetrisScene.h"
 #include "Renderer.h"
-#include <hookah/Hookah.h>
-#include <command/BindLoader.h>
+#include <vertical3d/hookah/Hookah.h>
+#include <vertical3d/command/BindLoader.h>
 #include <boost/bind.hpp>
 
 Controller::Controller()
