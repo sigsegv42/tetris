@@ -4,9 +4,9 @@
 #include "Piece.h"
 #include "Tetrad.h"
 
-#include <hookah/Window.h>
-#include <image/Texture.h>
-#include <font/FontCache.h>
+#include <vertical3d/hookah/Window.h>
+#include <vertical3d/image/Texture.h>
+#include <vertical3d/font/FontCache.h>
 #include <boost/shared_ptr.hpp>
 
 class TetrisScene;

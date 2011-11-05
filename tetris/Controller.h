@@ -1,11 +1,11 @@
 #ifndef INCLUDED_TETRIS_CONTROLLER
 #define INCLUDED_TETRIS_CONTROLLER
 
-#include <hookah/Window.h>
-#include <command/CommandDirectory.h>
-#include <input/KeyboardDevice.h>
-#include <input/MouseDevice.h>
-#include <gui/InputEventAdapter.h>
+#include <vertical3d/hookah/Window.h>
+#include <vertical3d/command/CommandDirectory.h>
+#include <vertical3d/input/KeyboardDevice.h>
+#include <vertical3d/input/MouseDevice.h>
+#include <vertical3d/gui/InputEventAdapter.h>
 
 class TetrisScene;
 class TetrisRenderer;

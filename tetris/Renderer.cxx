@@ -1,11 +1,13 @@
 #include "Renderer.h"
 #include "TetrisScene.h"
 
-#include <image/ImageFactory.h>
+#include <vertical3d/image/ImageFactory.h>
 #include <boost/bind.hpp>
 #include <iostream>
-#include <windows.h>
-#include <gl/gl.h>
+#ifdef __WIN32
+  #include <windows.h>
+#endif
+#include <GL/gl.h>
 
 TetrisRenderer::TetrisRenderer(boost::shared_ptr<TetrisScene> scene) : scene_(scene), fonts_(new v3D::FontCache())
 {
