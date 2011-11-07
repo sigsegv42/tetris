@@ -2,36 +2,41 @@
 #include "TetrisScene.h"
 
 #include <vertical3d/image/ImageFactory.h>
+#include <vertical3d/gl/GLFontRenderer.h>
+
 #include <boost/bind.hpp>
+
 #include <iostream>
+
 #ifdef __WIN32
   #include <windows.h>
 #endif
+
 #include <GL/gl.h>
 
 TetrisRenderer::TetrisRenderer(boost::shared_ptr<TetrisScene> scene) : scene_(scene), fonts_(new v3D::FontCache())
 {
 	// load a font to use for debugging output
-	fonts_->load("debug", "Helvetica", 32);
+	fonts_->load("debug", "/usr/share/fonts/corefonts/arial.ttf", 32);
 
 	try
 	{
 		v3D::ImageFactory factory;
 		// load textures
-		boost::shared_ptr<v3D::Texture> texture;
-		texture.reset(new v3D::Texture(factory.read("pieces/red.tga")));
+		boost::shared_ptr<v3D::GLTexture> texture;
+		texture.reset(new v3D::GLTexture(factory.read("pieces/red.tga")));
 		textures_["red"] = texture;
-		texture.reset(new v3D::Texture(factory.read("pieces/blue.tga")));
+		texture.reset(new v3D::GLTexture(factory.read("pieces/blue.tga")));
 		textures_["blue"] = texture;
-		texture.reset(new v3D::Texture(factory.read("pieces/cyan.tga")));
+		texture.reset(new v3D::GLTexture(factory.read("pieces/cyan.tga")));
 		textures_["cyan"] = texture;
-		texture.reset(new v3D::Texture(factory.read("pieces/green.tga")));
+		texture.reset(new v3D::GLTexture(factory.read("pieces/green.tga")));
 		textures_["green"] = texture;
-		texture.reset(new v3D::Texture(factory.read("pieces/orange.tga")));
+		texture.reset(new v3D::GLTexture(factory.read("pieces/orange.tga")));
 		textures_["orange"] = texture;
-		texture.reset(new v3D::Texture(factory.read("pieces/purple.tga")));
+		texture.reset(new v3D::GLTexture(factory.read("pieces/purple.tga")));
 		textures_["purple"] = texture;
-		texture.reset(new v3D::Texture(factory.read("pieces/yellow.tga")));
+		texture.reset(new v3D::GLTexture(factory.read("pieces/yellow.tga")));
 		textures_["yellow"] = texture;
 	}
 	catch (...)
@@ -132,7 +137,9 @@ bool TetrisRenderer::drawBoard()
 void TetrisRenderer::drawTetrad(const Tetrad & tetrad, bool dbg)
 {
 	if (!tetrad.initialized())
+	{
 		return;
+	}
 
 	if (dbg)
 	{
@@ -142,24 +149,25 @@ void TetrisRenderer::drawTetrad(const Tetrad & tetrad, bool dbg)
 
 		std::string txt;
 		boost::shared_ptr<v3D::Font2D> font = fonts_->get("debug");
+		v3D::GLFontRenderer fontRenderer(*font);
 
 		txt = "Offset x: " + tetrad.offset(Tetrad::OFFSET_X);
-		font->print(txt, 500.0f, 250.0f);
+		fontRenderer.print(txt, 500.0f, 250.0f);
 
 		txt = "width: " + tetrad.width();
-		font->print(txt, 500.0f, 275.0f);
+		fontRenderer.print(txt, 500.0f, 275.0f);
 
 		txt = "Offset y: " + tetrad.offset(Tetrad::OFFSET_Y);
-		font->print(txt, 500.0f, 300.0f);
+		fontRenderer.print(txt, 500.0f, 300.0f);
 
 		txt = "height: " + tetrad.height();
-		font->print(txt, 500.0f, 325.0f);
+		fontRenderer.print(txt, 500.0f, 325.0f);
 
 		txt = "pos x: " + tetrad.position().first;
-		font->print(txt, 500.0f, 350.0f);
+		fontRenderer.print(txt, 500.0f, 350.0f);
 
 		txt = "pos y: ", tetrad.position().second;
-		font->print(txt, 500.0f, 400.0f);
+		fontRenderer.print(txt, 500.0f, 400.0f);
 
 		glPopMatrix();
 	}
@@ -190,9 +198,13 @@ void TetrisRenderer::drawTetrad(const Tetrad & tetrad, bool dbg)
 				glScalef(quad_size, quad_size, quad_size);
 
 				if (shape.layout_[i][j] == 0)
+				{
 					textures_["cyan"]->bind();
+				}
 				else
+				{
 					textures_[shape.color_]->bind();
+				}
 
 				// draw quad
 				glBegin(GL_QUADS);
@@ -223,7 +235,9 @@ void TetrisRenderer::drawTetrad(const Tetrad & tetrad, bool dbg)
 void TetrisRenderer::drawPiece(const Piece & piece)
 {
 	if (piece.color() == Piece::COLOR_EMPTY)
+	{
 		return;
+	}
 
 	// set texture
 	textures_[piece.str()]->bind();

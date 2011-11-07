@@ -40,6 +40,8 @@ PKG_CHECK_MODULES([freetype2], [freetype2])
 PKG_CHECK_MODULES([openal], [openal])
 PKG_CHECK_MODULES([freealut], [freealut])
 
+PKG_CHECK_MODULES([gl], [gl])
+
 # libhookah needs sdl
 PKG_CHECK_MODULES([sdl], [sdl])
 
@@ -99,6 +101,18 @@ AC_SUBST([GCOV_CFLAGS])
 AC_SUBST([GCOV_LDFLAGS])
 AC_MSG_RESULT([$enable_gcov])
 
+# need at least vertical3d 1.0
+V3D_REQUIRE([1.0])
+# check for additional v3d libraries
+V3D_3DTYPES
+V3D_IMAGE
+V3D_INPUT
+V3D_COMMAND
+V3D_FONT
+V3D_GL
+V3D_GUI
+V3D_HOOKAH
+V3D_HOOKAH_SDL
 
 AC_SUBST([TETRIS_SO_VERSION], [0:1:0])
 AC_SUBST([TETRIS_API_VERSION], [1.0])

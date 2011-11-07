@@ -6,6 +6,8 @@
 #include <fstream>
 #include <sstream>
 
+#include <log4cxx/logger.h>
+
 GameBoard::GameBoard() : rows_(20), cols_(10), fallRate_(800), 
 						fastFallMultiplier_(8), fastFall_(false), debug_(false)
 {
@@ -81,18 +83,25 @@ Tetrad & GameBoard::currentTetrad()
 Tetrad GameBoard::randomTetrad()
 {
 	// pick a shape
-	size_t num = rand() % shapes_.size();
+	size_t shapeCount = shapes_.size();
+	size_t num = rand() % shapeCount;
+	log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("tetris"));
+	LOG4CXX_DEBUG(logger, "GameBoard::randomTetrad - selecting random tretrad # [" << num << "] from [" << shapeCount << "]");
+	
 	Tetrad piece(shapes_[num]);
 	// and an initial rotation
 	unsigned int rot = rand() % 3;
 	for (unsigned int i = 0; i < rot; i++)
+	{
 		piece.rotate(Tetrad::CLOCKWISE);
+	}
 
 	return piece;
 }
 
 void GameBoard::loadShapeInfo()
 {
+	log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("tetris"));
 	std::string filename = "pieces/shapes.txt";
 	std::ifstream shapes_file(filename.c_str(), std::ifstream::in);
 
@@ -120,8 +129,11 @@ void GameBoard::loadShapeInfo()
 			}
 		}
 		if (!shapes_file.good())
+		{
 			break;
+		}
 		shapes_file >> info.color_;
+		LOG4CXX_DEBUG(logger, "GameBoard::loadShapeInfo - got shape info color [" << info.color_ << "]");
 		shapes_.push_back(info);
 		if (shapes_file.peek() == '\n')
 		{
@@ -135,7 +147,9 @@ void GameBoard::spawnTetrad()
 	Tetrad::PositionType pos;
 
 	if (!nextTetrad_.initialized())
+	{
 		nextTetrad_ = randomTetrad();
+	}
 
 	// reset default fall speed flag
 	fastFall_ = false;
@@ -176,9 +190,13 @@ void GameBoard::update(unsigned int delta)
 			{
 				currentTetrad_.move(0, 1);
 				if (!fastFall_)
+				{
 					nextMove = fallRate_;
+				}
 				else
+				{
 					nextMove = fallRate_ / fastFallMultiplier_;
+				}
 			}
 		}
 
@@ -251,7 +269,9 @@ void GameBoard::checkCompletedRows(void)
 		for (unsigned int j = 0; j < cols_; j++)
 		{
 			if (pieces_[i][j].color() != Piece::COLOR_EMPTY)
+			{
 				filled++;
+			}
 		}
 		// clear out this row
 		if (filled == cols_)

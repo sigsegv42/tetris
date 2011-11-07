@@ -1,12 +1,21 @@
 #include "Controller.h"
 #include "TetrisScene.h"
 #include "Renderer.h"
+
 #include <vertical3d/hookah/Hookah.h>
 #include <vertical3d/command/BindLoader.h>
+
 #include <boost/bind.hpp>
+#include <boost/property_tree/xml_parser.hpp>
+
+#include <log4cxx/logger.h>
+#include <log4cxx/basicconfigurator.h>
+#include <log4cxx/helpers/exception.h>
 
 Controller::Controller()
 {
+	log4cxx::BasicConfigurator::configure();
+
 	// create new app window and set caption
 	window_ = Hookah::Create3DWindow(800, 600);
 
@@ -14,7 +23,7 @@ Controller::Controller()
 	keyboard_ = boost::shared_dynamic_cast<v3D::KeyboardDevice, v3D::InputDevice>(Hookah::CreateInputDevice("keyboard"));
 
 	// register directory as an observer of input device events
-	listenerAdapter_.reset(new InputEventAdapter(keyboard_, mouse_));
+	listenerAdapter_.reset(new v3D::InputEventAdapter(keyboard_, mouse_));
 	listenerAdapter_->connect(&directory_);
 
 	// add device to window
@@ -24,8 +33,8 @@ Controller::Controller()
 	window_->caption("Tetris!");
 
 	// load config file into a property tree
-	PropertyTree ptree;
-	ptree.load("config.xml");
+	boost::property_tree::ptree ptree;
+	boost::property_tree::read_xml("config.xml", ptree);
 
 	// setup scene
 	scene_.reset(new TetrisScene());
@@ -71,7 +80,9 @@ bool Controller::exec(const v3D::CommandInfo & command, const std::string & para
 
 		// at edge of board already 
 		if ((pos.first + offset) == 0)
+		{
 			return false;
+		}
 
 		// is there a piece to the left that would block this one?
 		bool hit = false;
@@ -81,11 +92,15 @@ bool Controller::exec(const v3D::CommandInfo & command, const std::string & para
 			if (p.color() != Piece::COLOR_EMPTY)
 			{
 				if (piece.shape().layout_[0][k] == 1)
+				{
 					hit = true;
+				}
 			}
 		}
 		if (hit)
+		{
 			return false;
+		}
 
 		piece.move(-1, 0);
 		return false;
@@ -100,7 +115,9 @@ bool Controller::exec(const v3D::CommandInfo & command, const std::string & para
 
 		// already at edge of board?
 		if (pos.first + width >= scene_->board()->columns())
+		{
 			return false;
+		}
 
 		// is there a piece to the right that would block this one?
 		bool hit = false;
@@ -114,11 +131,15 @@ bool Controller::exec(const v3D::CommandInfo & command, const std::string & para
 			if (p.color() != Piece::COLOR_EMPTY)
 			{
 				if (piece.shape().layout_[3][k] == 1)
+				{
 					hit = true;
+				}
 			}
 		}
 		if (hit)
+		{
 			return false;
+		}
 
 		piece.move(1, 0);
 		return false;

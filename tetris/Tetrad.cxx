@@ -2,13 +2,22 @@
 
 #include <iostream>
 #include <cassert>
+#include <algorithm>
+#include <cstring>
 
-Tetrad::Tetrad(ShapeInfo shape) : orientation_(0), shape_(shape), initialized_(true)
+Tetrad::Tetrad(const ShapeInfo & shape) : orientation_(0), shape_(shape), initialized_(true)
 {
 }
 
 Tetrad::Tetrad() : orientation_(0), initialized_(false)
 {
+}
+
+Tetrad & Tetrad::operator=(const Tetrad & t)
+{
+	orientation_ = t.orientation_;
+	initialized_ = t.initialized_;
+	shape_ = t.shape_;
 }
 
 bool Tetrad::initialized() const
@@ -19,9 +28,13 @@ bool Tetrad::initialized() const
 void Tetrad::move(int dx, int dy)
 {
 	if (dx < 0)
+	{
 		assert(position_.first + offset(OFFSET_X) > 0);
+	}
 	if (dy < 0)
+	{
 		assert(position_.second + offset(OFFSET_Y) > 0);
+	}
 
 	position_.first += dx;
 	position_.second += dy;
@@ -51,6 +64,7 @@ void Tetrad::rotate(RotationDirection dir)
 	}
 
 	// copy rotation before shift first so we get correct offsets for the shift later
+	//std::copy(rotated, rotated + 16, shape_.layout_);
 	memcpy(shape_.layout_, rotated, sizeof(rotated));
 
 	// FIXME!!!
@@ -72,6 +86,7 @@ void Tetrad::rotate(RotationDirection dir)
 		}
 	}
 
+	//std::copy(shifted, shifted + 16, shape_.layout_);
 	memcpy(shape_.layout_, shifted, sizeof(shifted));
 }
 

@@ -24,4 +24,7 @@ tests/Makefile.in
 tetris/.deps/
 tetris/Makefile
 tetris/Makefile.in
-
+tetris/pieces
+tetris/config.xml
+tetris/tetris
+tests/unit_tests

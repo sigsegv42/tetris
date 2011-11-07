@@ -425,10 +425,141 @@ V3D_DEFUN([3dtypes],
 ])# V3D_3DTYPES
 
 
-#V3D_AUDIO
+# V3D_IMAGE()
+# -----------------------------------------
+# Look for libv3dimage
+V3D_DEFUN([image],
+# this is a bit of a kludge, but in order to link the image library
+# we need to link a bunch of other dependent libraries. so this macro
+# must only be used after those dependent library macros have been called
+v3d_image_save_LIBS=$LIBS
+LIBS="$LIBS $libpng_LIBS $JPEG_LIBS $liblog4cxx_LIBS $BOOST_SYSTEM_LIBS $BOOST_FILESYSTEM_LIBS"
+[V3D_FIND_LIB([image],
+                [vertical3d/image/Image.h],
+                [v3D::Image test();])
+LIBS=$v3d_image_save_LIBS
+])# V3D_IMAGE
+
+
+# V3D_COMMAND()
+# -----------------------------------------
+# Look for libv3dcommand
+V3D_DEFUN([command],
+v3d_command_save_LIBS=$LIBS
+LIBS="$LIBS $BOOST_SIGNALS_LIBS $liblog4cxx_LIBS"
+[V3D_FIND_LIB([command],
+                [vertical3d/command/Command.h],
+                [v3D::CommandInfo test("cmd");])
+LIBS=$v3d_command_save_LIBS
+])# V3D_COMMAND
+
+
+# V3D_INPUT()
+# -----------------------------------------
+# Look for libv3dinput
+V3D_DEFUN([input],
+[V3D_FIND_LIB([input],
+                [vertical3d/input/KeyboardDevice.h],
+                [
+class TestableKeyboardDevice : public v3D::KeyboardDevice {
+public: bool tick(void) { return true; } };
+TestableKeyboardDevice test;
+])
+])# V3D_INPUT
+
+# V3D_FONT()
+# -----------------------------------------
+# Look for libv3dfont
+V3D_DEFUN([font],
+# this is a bit of a kludge, but in order to link the image library
+# we need to link a bunch of other dependent libraries. so this macro
+# must only be used after those dependent library macros have been called
+v3d_font_save_LIBS=$LIBS
+LIBS="$LIBS $freetype2_LIBS $liblog4cxx_LIBS $V3D_IMAGE_LIBS $libpng_LIBS $JPEG_LIBS $BOOST_SYSTEM_LIBS $BOOST_FILESYSTEM_LIBS"
+[V3D_FIND_LIB([font],
+                [vertical3d/font/Font2D.h],
+                [v3D::Font2D test();])
+LIBS=$v3d_font_save_LIBS
+])# V3D_FONT
+
+# V3D_GL()
+# -----------------------------------------
+# Look for libv3dgl
+V3D_DEFUN([gl],
+# this is a bit of a kludge, but in order to link the image library
+# we need to link a bunch of other dependent libraries. so this macro
+# must only be used after those dependent library macros have been called
+v3d_gl_save_LIBS=$LIBS
+LIBS="$LIBS $gl_LIBS $liblog4cxx_LIBS $V3D_IMAGE_LIBS $V3D_FONT_LIBS $libpng_LIBS $freetype2_LIBS $JPEG_LIBS $BOOST_SYSTEM_LIBS $BOOST_FILESYSTEM_LIBS"
+[V3D_FIND_LIB([gl],
+                [vertical3d/gl/GLTexture.h],
+                [v3D::GLTexture test();])
+LIBS=$v3d_gl_save_LIBS
+])# V3D_GL
+
+# V3D_GUI()
+# -----------------------------------------
+# Look for libv3dgui
+V3D_DEFUN([gui],
+# this is a bit of a kludge, but in order to link the image library
+# we need to link a bunch of other dependent libraries. so this macro
+# must only be used after those dependent library macros have been called
+v3d_gui_save_LIBS=$LIBS
+LIBS="$LIBS $V3D_INPUT_LIBS $V3D_COMMAND_LIBS $BOOST_SIGNALS_LIBS $liblog4cxx_LIBS"
+[V3D_FIND_LIB([gui],
+                [vertical3d/gui/InputEventAdapter.h],
+                [])
+LIBS=$v3d_gui_save_LIBS
+])# V3D_GUI
+
+# V3D_HOOKAH()
+# -----------------------------------------
+# Look for libv3dhookah
+V3D_DEFUN([hookah],
+v3d_hookah_save_LIBS=$LIBS
+LIBS="$LIBS $BOOST_SIGNALS_LIBS"
+[V3D_FIND_LIB([hookah],
+                [vertical3d/hookah/Window.h],
+                [])
+LIBS=$v3d_hookah_save_LIBS
+])# V3D_HOOKAH
+
+# V3D_HOOKAH_SDL()
+# -----------------------------------------
+# Look for libv3dhookah_sdl
+V3D_DEFUN([hookah_sdl],
+v3d_hookah_save_LIBS=$LIBS
+LIBS="$LIBS $V3D_HOOKAH_LIBS $BOOST_SIGNALS_LIBS $sdl_LIBS $V3D_INPUT_LIBS"
+[V3D_FIND_LIB([hookah_sdl],
+                [vertical3d/hookah/drivers/SDLWindow.h],
+                [])
+LIBS=$v3d_hookah_save_LIBS
+])# V3D_HOOKAH
+
+
+# V3D_HOOKAH_FLTK()
+# -----------------------------------------
+# Look for libv3dhookah_fltk
+V3D_DEFUN([hookah_fltk],
+v3d_hookah_save_LIBS=$LIBS
+LIBS="$LIBS $FLTK_LDFLAGS $V3D_HOOKAH_LIBS $BOOST_SIGNALS_LIBS $V3D_INPUT_LIBS"
+[V3D_FIND_LIB([hookah_fltk],
+                [vertical3d/hookah/drivers/FLTKWindow.h],
+                [])
+LIBS=$v3d_hookah_save_LIBS
+])# V3D_HOOKAH
+
+
+# V3D_AUDIO()
+# -----------------------------------------
+# Look for libv3daudio
+V3D_DEFUN([audio],
+v3d_audio_save_LIBS=$LIBS
+LIBS="$LIBS $openal_LIBS $freealut_LIBS $V3D_TYPES_LIBS"
+[V3D_FIND_LIB([audio],
+                [vertical3d/audio/AudioClip.h],
+                [v3D::AudioClip test();])
+LIBS=$v3d_audio_save_LIBS
+])# V3D_AUDIO
+
 #V3D_BREP
-#V3D_COMMAND
-#V3D_FONT
-#V3D_GL
-#V3D_IMAGE
-#V3D_INPUT

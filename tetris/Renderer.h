@@ -5,7 +5,7 @@
 #include "Tetrad.h"
 
 #include <vertical3d/hookah/Window.h>
-#include <vertical3d/image/Texture.h>
+#include <vertical3d/gl/GLTexture.h>
 #include <vertical3d/font/FontCache.h>
 #include <boost/shared_ptr.hpp>
 
@@ -25,7 +25,7 @@ class TetrisRenderer
 
 	private:
 		boost::shared_ptr<TetrisScene> scene_;
-		std::map<std::string, boost::shared_ptr<v3D::Texture> >	textures_;
+		std::map<std::string, boost::shared_ptr<v3D::GLTexture> >	textures_;
 		boost::shared_ptr<v3D::FontCache> fonts_;
 };
 

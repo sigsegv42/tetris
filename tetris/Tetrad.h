@@ -36,7 +36,7 @@ class Tetrad
 		typedef std::pair<unsigned int, unsigned int> PositionType;
 
 		Tetrad();
-		Tetrad(ShapeInfo shape);
+		Tetrad(const ShapeInfo & shape);
 
 		/**
 		 * Set the position of the tetrad.
@@ -68,6 +68,8 @@ class Tetrad
 		 * @return the offset in the given axis
 		 */
 		unsigned int offset(OffsetAxis dir) const;
+
+		Tetrad & operator=(const Tetrad & t);
 
 	private:
 		unsigned int orientation_; // 0 = 0, 1 = 90, 2 = 180, 3 = 270 degree rotation
