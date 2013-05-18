@@ -18,6 +18,7 @@ Tetrad & Tetrad::operator=(const Tetrad & t)
 	orientation_ = t.orientation_;
 	initialized_ = t.initialized_;
 	shape_ = t.shape_;
+	return *this;
 }
 
 bool Tetrad::initialized() const

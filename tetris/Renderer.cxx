@@ -8,11 +8,7 @@
 
 #include <iostream>
 
-#ifdef __WIN32
-  #include <windows.h>
-#endif
-
-#include <GL/gl.h>
+#include <GL/glew.h>
 
 TetrisRenderer::TetrisRenderer(boost::shared_ptr<TetrisScene> scene) : scene_(scene), fonts_(new v3D::FontCache())
 {

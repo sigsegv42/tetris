@@ -20,7 +20,7 @@ Controller::Controller()
 	window_ = Hookah::Create3DWindow(800, 600);
 
 	// create input devices
-	keyboard_ = boost::shared_dynamic_cast<v3D::KeyboardDevice, v3D::InputDevice>(Hookah::CreateInputDevice("keyboard"));
+	keyboard_ = boost::dynamic_pointer_cast<v3D::KeyboardDevice, v3D::InputDevice>(Hookah::CreateInputDevice("keyboard"));
 
 	// register directory as an observer of input device events
 	listenerAdapter_.reset(new v3D::InputEventAdapter(keyboard_, mouse_));

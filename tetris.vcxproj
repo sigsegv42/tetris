@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9313EE3E-EF7E-4D21-BAFD-48DCF714DFB7}</ProjectGuid>
+    <RootNamespace>tetris</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.60315.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\v3dlibs\src;$(SolutionDir)..\vendor\boost_1_53_0\;$(SolutionDir)..\vendor\glew-1.9.0\include\;$(SolutionDir)..\vendor\log4cxx\src\main\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>libhookah.lib;libhookah_sdl2.lib;OpenGL32.lib;glew32.lib;SDL.lib;OpenAL32.lib;alut.lib;QuantumXML.lib;libv3dtypes.lib;libv3dutil.lib;libv3dcommand.lib;libpng15.lib;zlib.lib;libv3dfont.lib;libv3dimage.lib;freetype2411MT_D.lib;libv3dinput.lib;libv3dgui.lib;jpeg.lib;log4cxx.lib;libv3devent.lib;libv3dgl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\v3dlibs\win_build\$(Configuration);$(SolutionDir)..\QuantumXML\build\$(Configuration);C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;$(SolutionDir)\..\vendor\SDL2\VisualC\SDL\Win32\$(Configuration)\;$(SolutionDir)..\vendor\libpng-1.5.10\projects\vstudio\$(Configuration);$(SolutionDir)..\vendor\boost_1_53_0\stage\lib;$(SolutionDir)..\vendor\freetype-2.4.11\objs\win32\vc2010\;$(SolutionDir)..\vendor\jpeg-8d\Release\;$(SolutionDir)\..\vendor\glew-1.9.0\lib;$(SolutionDir)\..\vendor\apache-logger\apache-log4cxx-0.10.0\projects\$(Configuration);$(SolutionDir)..\vendor\freealut-1.1.0-bin\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\v3dlibs\src;$(SolutionDir)..\vendor\boost_1_53_0\;$(SolutionDir)..\vendor\glew-1.9.0\include\;$(SolutionDir)..\vendor\log4cxx\src\main\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>libhookah.lib;OpenGL32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;alut.lib;QuantumXML.lib;libv3dtypes.lib;libv3dutil.lib;libv3dcommand.lib;libpng13.lib;zlib.lib;libv3dfont.lib;libv3dimage.lib;freetype237MT.lib;libv3dinput.lib;libv3dgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\vertical3d\build\$(Configuration);$(SolutionDir)..\QuantumXML\build\$(Configuration);C:\Program Files\OpenAL 1.1 SDK\libs\Win32;C:\code\SDL-1.2.13\lib;C:\code\libpng-1.2.29;C:\code\zlib-1.2.3;C:\code\boost\stage\lib;c:\code\freetype-2.3.7\objs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="tetris\Controller.cxx" />
+    <ClCompile Include="tetris\GameBoard.cxx" />
+    <ClCompile Include="tetris\Piece.cxx" />
+    <ClCompile Include="tetris\Renderer.cxx" />
+    <ClCompile Include="tetris\Tetrad.cxx" />
+    <ClCompile Include="tetris\tetris.cxx" />
+    <ClCompile Include="tetris\TetrisScene.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tetris\Controller.h" />
+    <ClInclude Include="tetris\GameBoard.h" />
+    <ClInclude Include="tetris\Piece.h" />
+    <ClInclude Include="tetris\Renderer.h" />
+    <ClInclude Include="tetris\Tetrad.h" />
+    <ClInclude Include="tetris\TetrisScene.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
